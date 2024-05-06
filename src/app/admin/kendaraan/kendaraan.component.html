@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+
+    <title>Tables / Data - NiceAdmin Bootstrap Template</title>
+    <meta content="" name="description" />
+    <meta content="" name="keywords" />
+
+    <!-- Favicons -->
+    <!-- <link href="/assets/admin/img/favicon.png" rel="icon"> -->
+    <!-- <link href="/assets/admin/img/apple-touch-icon.png" rel="apple-touch-icon"> -->
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.gstatic.com" rel="preconnect" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+      rel="stylesheet"
+    />
+
+    <!-- Vendor CSS Files -->
+    <link
+      href="/assets/admin/vendor/bootstrap/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="/assets/admin/vendor/bootstrap-icons/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+    <link
+      href="/assets/admin/vendor/boxicons/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+    <link href="/assets/admin/vendor/quill/quill.snow.css" rel="stylesheet" />
+    <link href="/assets/admin/vendor/quill/quill.bubble.css" rel="stylesheet" />
+    <link
+      href="/assets/admin/vendor/remixicon/remixicon.css"
+      rel="stylesheet"
+    />
+    <link
+      href="/assets/admin/vendor/simple-datatables/style.css"
+      rel="stylesheet"
+    />
+
+    <!-- Template Main CSS File -->
+    <link href="/assets/admin/css/style.css" rel="stylesheet" />
+
+    <!-- =======================================================
+  * Template Name: NiceAdmin
+  * Template URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
+  * Updated: Mar 17 2024 with Bootstrap v5.3.3
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
+  </head>
+
+  <body>
+    <!-- ======= Header ======= -->
+    <header id="header" class="header fixed-top d-flex align-items-center">
+      <div class="d-flex align-items-center justify-content-between">
+        <a routerLink="/dashboard" class="logo d-flex align-items-center">
+          <img src="/assets/img/bcafinancelogo.png" alt="" />
+          <!-- <span class="d-none d-lg-block">ADMIN</span> -->
+        </a>
+      </div>
+      <!-- End Logo -->
+
+      <nav class="header-nav ms-auto">
+        <ul class="d-flex align-items-center">
+          <li class="nav-item dropdown pe-3">
+            <a
+              class="nav-link nav-profile d-flex align-items-center pe-0"
+              href="#"
+              data-bs-toggle="dropdown"
+            >
+              <img
+                src="/assets/admin/img/profile-img.jpg"
+                alt="Profile"
+                class="rounded-circle"
+              />
+              <span class="d-none d-md-block dropdown-toggle ps-2"></span> </a
+            ><!-- End Profile Iamge Icon -->
+
+            <ul
+              class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile"
+            >
+              <!-- <li>
+              <a class="dropdown-item d-flex align-items-center" (click)="onLogout()">
+                <i class="bi bi-box-arrow-right"></i>
+                <span>Sign Out</span>
+              </a>
+            </li> -->
+            </ul>
+            <!-- End Profile Dropdown Items -->
+          </li>
+          <!-- End Profile Nav -->
+        </ul>
+      </nav>
+      <!-- End Icons Navigation -->
+    </header>
+    <!-- End Header -->
+
+    <!-- ======= Sidebar ======= -->
+    <aside id="sidebar" class="sidebar">
+      <ul class="sidebar-nav" id="sidebar-nav">
+        <li class="nav-item">
+          <a class="nav-link collapsed" routerLink="/listPengajuan">
+            <i class="bi bi-grid"></i>
+            <span>Data Pengajuan</span>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a
+            class="nav-link collapsed"
+            data-bs-target="#tables-nav"
+            data-bs-toggle="collapse"
+            href="#"
+          >
+            <i class="bi bi-layout-text-window-reverse"></i><span>Master</span
+            ><i class="bi bi-chevron-down ms-auto"></i>
+          </a>
+          <ul
+            id="tables-nav"
+            class="nav-content collapse"
+            data-bs-parent="#sidebar-nav"
+          >
+            <li>
+              <a routerLink="/masterWilayah">
+                <i class="bi bi-circle"></i><span>Master Wilayah</span>
+              </a>
+            </li>
+            <li>
+              <a routerLink="/masterBrand">
+                <i class="bi bi-circle"></i><span>Master Brand</span>
+              </a>
+            </li>
+            <li>
+              <a routerLink="/masterKendaraan">
+                <i class="bi bi-circle"></i><span>Master Kendaraan</span>
+              </a>
+            </li>
+          </ul>
+        </li>
+        <!-- End Tables Nav -->
+      </ul>
+    </aside>
+    <!-- End Sidebar-->
+
+    <main id="main" class="main">
+      <section class="section">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">
+                  Master Kendaraan | &nbsp;
+                  <button
+                    (click)="tambahData()"
+                    type="button"
+                    class="btn btn-primary"
+                    data-bs-toggle="modal"
+                    data-bs-target="#basicModalSave"
+                  >
+                    Tambah Data
+                  </button>
+                </h5>
+
+                <div class="col-md-4 mb-3">
+                  <div class="input-group">
+                    <select
+                      class="form-select"
+                      [(ngModel)]="pageSize"
+                      (ngModelChange)="onAllVehicle()"
+                    >
+                      <option [ngValue]="5">5</option>
+                      <option [ngValue]="10">10</option>
+                      <option [ngValue]="20">20</option>
+                    </select>
+                    &nbsp;
+                    <span class="input-group-text" id="basic-addon1">
+                      <i class="bi bi-search"></i>
+                    </span>
+                    <input
+                      type="text"
+                      class="form-control"
+                      placeholder="Search"
+                      aria-label="Search"
+                      aria-describedby="basic-addon1"
+                      [(ngModel)]="searchQuery"
+                      (input)="onSearch()"
+                    />
+                  </div>
+                </div>
+                <br />
+                <!-- Table with stripped rows -->
+                <table class="table datatable">
+                  <thead>
+                    <tr>
+                      <th>No</th>
+                      <th>Wilayah</th>
+                      <th>Brand Mobil</th>
+                      <th>Tipe Mobil</th>
+                      <th>Harga Mobil</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let v of vehicles; let i = index">
+                      <td>{{ i + 1 }}</td>
+                      <td>{{ v.brand.wilayah.provinsi }}</td>
+                      <td>{{ v.brand.brandMobil }}</td>
+                      <td>{{ v.tipeMobil }}</td>
+                      <td>{{ v.harga | currency : "Rp. " }}</td>
+                      <td>
+                        <button
+                          (click)="edit(v)"
+                          type="button"
+                          class="btn btn-info"
+                          data-bs-toggle="modal"
+                          data-bs-target="#basicModal"
+                        >
+                          Edit
+                        </button>
+                        &nbsp;
+                        <button
+                          (click)="onDeleteVehicle(v.idVehicle)"
+                          type="button"
+                          class="btn btn-danger"
+                        >
+                          Delete
+                        </button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+                <div class="d-flex justify-content-between p-2">
+                  <ngb-pagination
+                    [collectionSize]="collectionSize"
+                    [(page)]="page"
+                    [pageSize]="pageSize"
+                    (pageChange)="onAllVehicle()"
+                  >
+                  </ngb-pagination>
+                </div>
+
+                <!-- End Table with stripped rows -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- EDIT DATA -->
+      <div class="modal fade" id="basicModal" tabindex="-1">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Edit Data Kendaraan</h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <label class="form-label">ID Kendaraan</label>
+                  <input
+                    disabled
+                    value="{{ vehicle.idVehicle }}"
+                    type="text"
+                    class="form-control"
+                  />
+                </div>
+
+                <div class="col-md-6 mb-3">
+                  <label class="form-label">Wilayah</label>
+                  <select
+                    id="wilayah"
+                    [(ngModel)]="wilayahId"
+                    class="form-select"
+                    name="wilayah"
+                    disabled
+                  >
+                    <option value="undefined" hidden disabled>
+                      - Pilih Wilayah -
+                    </option>
+                    <option
+                      readonly
+                      *ngFor="let w of wilayahs"
+                      [value]="w.idWilayah"
+                      id="wilayah-option"
+                    >
+                      {{ w.provinsi }}
+                    </option>
+                  </select>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                  <label class="form-label">Brand Mobil</label>
+                  <select
+                    id="brand"
+                    class="form-select"
+                    [(ngModel)]="brandId"
+                    name="brand"
+                    disabled
+                  >
+                    <option value="undefined" hidden disabled>
+                      - Pilih Brand -
+                    </option>
+                    <option
+                      readonly
+                      *ngFor="let b of brands"
+                      value="{{ b.idBrand }}"
+                    >
+                      {{ b.brandMobil }}
+                    </option>
+                  </select>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                  <label class="form-label">Tipe Mobil</label>
+                  <input
+                    value="{{ vehicle.tipeMobil }}"
+                    [(ngModel)]="vehicle.tipeMobil"
+                    id="tipeMobil"
+                    type="text"
+                    class="form-control"
+                  />
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label class="form-label">Harga Mobil</label>
+                  <input
+                    value="{{ vehicle.harga }}"
+                    [(ngModel)]="vehicle.harga"
+                    id="hargaMobil"
+                    type="text"
+                    class="form-control"
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button
+                (click)="onUpdateVehicle(vehicle.idVehicle)"
+                type="button"
+                class="btn btn-primary"
+                data-bs-dismiss="modal"
+              >
+                Simpan
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SAVE DATA -->
+      <div class="modal fade" id="basicModalSave" tabindex="-1">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Tambah Data Kendaraan</h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <label class="form-label">Wilayah</label>
+                  <select
+                    id="wilayah"
+                    [(ngModel)]="vehicle.brand.wilayah.idWilayah"
+                    class="form-select"
+                    (ngModelChange)="onDetectIDWilayah()"
+                    name="wilayah"
+                  >
+                    <option value="0" selected hidden disabled>
+                      - Pilih Wilayah -
+                    </option>
+                    <option
+                      readonly
+                      *ngFor="let w of wilayahs"
+                      [value]="w.idWilayah"
+                      id="wilayah-option"
+                    >
+                      {{ w.provinsi }}
+                    </option>
+                  </select>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                  <label class="form-label">Brand Mobil</label>
+                  <select
+                    id="brand"
+                    class="form-select"
+                    [(ngModel)]="vehicle.brand.idBrand"
+                    name="brand"
+                    (ngModelChange)="onDetectIdBrand()"
+                  >
+                    <option value="0" hidden disabled>- Pilih Brand -</option>
+                    <option
+                      readonly
+                      *ngFor="let b of newBrands"
+                      value="{{ b.idBrand }}"
+                    >
+                      {{ b.brandMobil }}
+                    </option>
+                  </select>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                  <label class="form-label">Tipe Mobil</label>
+                  <input
+                    placeholder="Masukan Tipe Mobil"
+                    [(ngModel)]="vehicle.tipeMobil"
+                    id="tipeMobil"
+                    type="text"
+                    class="form-control"
+                  />
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label class="form-label">Harga Mobil</label>
+                  <input
+                    placeholder="Masukan Harga Mobil"
+                    [(ngModel)]="vehicle.harga"
+                    id="hargaMobil"
+                    type="text"
+                    class="form-control"
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button
+                (click)="onSaveVehicle()"
+                type="button"
+                class="btn btn-primary"
+                data-bs-dismiss="modal"
+              >
+                Simpan
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+    <!-- End #main -->
+
+    <!-- ======= Footer ======= -->
+    <footer id="footer" class="footer">
+      <div class="copyright">
+        &copy; Copyright <strong><span>NiceAdmin</span></strong
+        >. All Rights Reserved
+      </div>
+      <div class="credits">
+        <!-- All the links in the footer should remain intact. -->
+        <!-- You can delete the links only if you purchased the pro version. -->
+        <!-- Licensing information: https://bootstrapmade.com/license/ -->
+        <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/ -->
+        Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+      </div>
+    </footer>
+    <!-- End Footer -->
+
+    <a
+      href="#"
+      class="back-to-top d-flex align-items-center justify-content-center"
+      ><i class="bi bi-arrow-up-short"></i
+    ></a>
+
+    <!-- Vendor JS Files -->
+    <script src="/assets/admin/vendor/apexcharts/apexcharts.min.js"></script>
+    <script src="/assets/admin/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="/assets/admin/vendor/chart.js/chart.umd.js"></script>
+    <script src="/assets/admin/vendor/echarts/echarts.min.js"></script>
+    <script src="/assets/admin/vendor/quill/quill.min.js"></script>
+    <script src="/assets/admin/vendor/simple-datatables/simple-datatables.js"></script>
+    <script src="/assets/admin/vendor/tinymce/tinymce.min.js"></script>
+    <script src="/assets/admin/vendor/php-email-form/validate.js"></script>
+
+    <!-- Template Main JS File -->
+    <script src="/assets/admin/js/main.js"></script>
+  </body>
+</html>

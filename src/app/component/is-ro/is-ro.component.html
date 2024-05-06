@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TABootcamp</title>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      .section-title {
+        text-align: center;
+        color: blue;
+        font-weight: bold;
+        margin-bottom: 30px;
+      }
+
+      .card {
+        border: none;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        background-size: cover;
+        /* background-color: rgb(0, 255, 251); */
+      }
+
+      .form-label {
+        font-weight: bold;
+      }
+
+      .form-control {
+        border-radius: 10px;
+        border: 1px solid #ced4da;
+        transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+      }
+
+      .form-control:focus {
+        border-color: #80bdff;
+        box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+      }
+
+      .btn-outline-secondary {
+        border-radius: 10px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <main id="main">
+      <section id="about" class="about section-bg">
+        <div class="container" data-aos="fade-up">
+          <div class="section-title">
+            <h3
+              style="
+                text-align: center;
+                color: rgb(0, 123, 255);
+                font-weight: bold;
+                margin-top: 10px;
+              "
+            >
+              <span cen>Input Data Konsumen</span>
+            </h3>
+          </div>
+          <!-- Form Status Konsumen -->
+          <div class="row mb-3">
+            <div class="col-md-12">
+              <div class="card">
+                <div class="card-body">
+                  <div class="form-group text-center">
+                    <div class="mb-3">
+                      <label
+                        class="form-label gap-3"
+                        for="formGroupStatusKonsumen"
+                        >Status Konsumen</label
+                      >
+
+                      <select
+                        class="form-select gap-5 mb-3"
+                        aria-label="Example select with button addon"
+                        [(ngModel)]="selectedStatus"
+                        (ngModelChange)="onDetectIsRO()"
+                        name="select"
+                      >
+                        <option value="undefined" hidden disabled>
+                          - Pilih Status Konsumen -
+                        </option>
+                        <option value="1">Repeat Order</option>
+                        <option value="2">Regular</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- INI MUNCUL KETIKA KONSUMEN RO -->
+          <div *ngIf="selectedStatus == 1" class="row mb-3">
+            <div class="col-md-12">
+              <div class="card">
+                <div class="card-body">
+                  <form>
+                    <div class="mb-3">
+                      <label class="form-label" for="formGroupExampleInput"
+                        >Nomor Kontrak</label
+                      >
+                      <input
+                        [(ngModel)]="noKontrak"
+                        type="text"
+                        class="form-control"
+                        name="noKontrak"
+                        id="formGroupExampleInput"
+                        placeholder="Masukkan Nomor Kontrak"
+                      />
+                    </div>
+
+                    <button
+                      (click)="onCek()"
+                      type="button"
+                      class="btn btn-primary"
+                    >
+                      Cek Data
+                    </button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- ini muncul ketika no kontrak benar -->
+          <div
+            *ngIf="statusCek == true && selectedStatus == 1"
+            class="row mb-3"
+          >
+            <div class="col-md-6">
+              <div class="card">
+                <div class="card-body">
+                  <form>
+                    <label
+                      class="form-label gap-3"
+                      for="formGroupStatusKonsumen"
+                      >Cek Data Diri Anda</label
+                    >
+
+                    <div class="mb-3" style="font-size: small; color: red">
+                      Jika ada data yang berbeda, anda dapat melakukan
+                      pembaharuan data saat dihubungi oleh Marketing kami
+                    </div>
+
+                    <form
+                      action="#"
+                      method="post"
+                      enctype="multipart/form-data"
+                    >
+                      <!-- <div class="mb-3">
+                        <label for="foto" class="form-label">Foto KTP:</label
+                        >
+                        <input
+                          type="file"
+                          id="foto"
+                          name="foto"
+                          class="form-control"
+                          style="display: inline"
+                        />
+                      </div> -->
+
+                      <div class="mb-3">
+                        <label for="nik" class="form-label">NIK:</label>
+                        <input
+                          readonly
+                          [(ngModel)]="konsumen.data.nik"
+                          type="text"
+                          id="nik"
+                          name="nik"
+                          class="form-control"
+                        />
+                      </div>
+
+                      <div class="mb-3">
+                        <label for="nama" class="form-label"
+                          >Nama Lengkap:</label
+                        >
+                        <input
+                          readonly
+                          [(ngModel)]="konsumen.data.nama"
+                          type="text"
+                          id="nama"
+                          name="nama"
+                          class="form-control"
+                        />
+                      </div>
+
+                      <div class="mb-3">
+                        <label for="tanggal_lahir" class="form-label"
+                          >Tanggal Lahir:</label
+                        >
+                        <input
+                          readonly
+                          [(ngModel)]="konsumen.data.tglLahir"
+                          type="date"
+                          id="tanggal_lahir"
+                          name="tanggal_lahir"
+                          class="form-control"
+                        />
+                      </div>
+                    </form>
+                  </form>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="card">
+                <div class="card-body">
+                  <form>
+                    <div class="mb-3">
+                      <label for="nohp" class="form-label">No Handphone</label>
+                      <input
+                        [(ngModel)]="konsumen.data.noHp"
+                        type="text"
+                        id="nohp"
+                        name="nohp"
+                        class="form-control"
+                      />
+                    </div>
+
+                    <div class="mb-3">
+                      <label for="domisili" class="form-label">Domisili:</label>
+                      <input
+                        readonly
+                        [(ngModel)]="konsumen.data.domisili"
+                        type="text"
+                        id="domisili"
+                        name="domisili"
+                        class="form-control"
+                      />
+                    </div>
+
+                    <div class="mb-3">
+                      <label for="nomor_rekening" class="form-label"
+                        >Nomor Rekening BCA:</label
+                      >
+                      <input
+                        readonly
+                        [(ngModel)]="konsumen.data.noRek"
+                        type="text"
+                        id="nomor_rekening"
+                        name="nomor_rekening"
+                        class="form-control"
+                      />
+                    </div>
+
+                    <div class="mb-3">
+                      <label class="form-label">Status Pernikahan:</label>
+                      <input
+                        readonly
+                        [(ngModel)]="konsumen.data.status"
+                        type="text"
+                        id="statusPernikahan"
+                        name="statusPernikahan"
+                        class="form-control"
+                      />
+                    </div>
+
+                    <div class="mb-3">
+                      <button (click)="onSubmit()" class="btn btn-primary">
+                        Submit
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Ini muncul ketika konsumen pilih regular -->
+          <div *ngIf="selectedStatus == 2" class="row mb-3">
+            <div class="col-md-6">
+              <div class="card">
+                <div class="card-body">
+                  <form>
+                    <form
+                      action="#"
+                      method="post"
+                      enctype="multipart/form-data"
+                    >
+                      <div class="mb-3">
+                        <label for="nik" class="form-label">NIK:</label>
+                        <input
+                          type="text"
+                          id="nik"
+                          name="nik"
+                          class="form-control"
+                          [(ngModel)]="nik"
+                        />
+                      </div>
+
+                      <div class="mb-3">
+                        <label for="nama" class="form-label"
+                          >Nama Lengkap:</label
+                        >
+                        <input
+                          type="text"
+                          id="nama"
+                          name="nama"
+                          class="form-control"
+                          [(ngModel)]="namaLengkap"
+                        />
+                      </div>
+
+                      <div class="mb-3">
+                        <label for="tanggal_lahir" class="form-label"
+                          >Tanggal Lahir:</label
+                        >
+                        <input
+                          [(ngModel)]="tglLahir"
+                          type="date"
+                          id="tanggal_lahir"
+                          name="tanggal_lahir"
+                          class="form-control"
+                        />
+                      </div>
+
+                      <div class="mb-3">
+                        <label for="nohp" class="form-label"
+                          >No Handphone</label
+                        >
+                        <input
+                          [(ngModel)]="noHandphone"
+                          type="text"
+                          id="nohp"
+                          name="nohp"
+                          class="form-control"
+                        />
+                      </div>
+                    </form>
+                  </form>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="card">
+                <div class="card-body">
+                  <form>
+                    <div class="mb-3">
+                      <label for="domisili" class="form-label">Domisili:</label>
+                      <input
+                        type="text"
+                        id="domisili"
+                        name="domisili"
+                        class="form-control"
+                        [(ngModel)]="domisili"
+                      />
+                    </div>
+
+                    <div class="mb-3">
+                      <label for="nomor_rekening" class="form-label"
+                        >Nomor Rekening BCA:</label
+                      >
+                      <input
+                        type="text"
+                        id="nomor_rekening"
+                        name="nomor_rekening"
+                        class="form-control"
+                        [(ngModel)]="noRek"
+                      />
+                    </div>
+
+                    <div class="mb-3">
+                      <label class="form-label">Status Pernikahan:</label>
+                      <select
+                        [(ngModel)]="statusPernikahan"
+                        id="pernikahan"
+                        class="form-control"
+                        name="tahun"
+                      >
+                        <option value="undefined" hidden disabled>
+                          - Pilih Status Pernikahan -
+                        </option>
+                        <option value="Menikah">Menikah</option>
+                        <option value="Belum Menikah">Belum Menikah</option>
+                      </select>
+                    </div>
+                    <br />
+                    <div class="mb-3">
+                      <button (click)="onSubmit()" class="btn btn-primary">
+                        Submit
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script>
+      // Your JavaScript logic here
+    </script>
+  </body>
+</html>

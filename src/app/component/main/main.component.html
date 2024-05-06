@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TABootcamp</title>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      /* body { */
+      /* background-image: url("/assets/img/background.png"); */
+      /* background-size: cover;
+        background-color: rgb(0, 204, 255);
+        width: 100%;
+        height: 100%; */
+      /* } */
+      .card {
+        background-size: cover;
+        /* background-color: rgb(175, 180, 189); */
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+    </style>
+  </head>
+
+  <body>
+    <main id="main">
+      <section id="about" class="about section-bg">
+        <div class="container" data-aos="fade-up">
+          <br />
+          <div class="section-title">
+            <h3 style="text-align: center; color: blue; font-weight: bold">
+              <span cen>Input Data Kendaraan</span>
+            </h3>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="card">
+                <div class="card-body">
+                  <ul class="row g-3">
+                    <h3 class="card-title"></h3>
+                    <div class="col-md-6">
+                      <label class="form-label">Wilayah</label>
+                      <select
+                        id="wilayah"
+                        [(ngModel)]="wilayahId"
+                        class="form-select"
+                        (ngModelChange)="onDetectIDWilayah()"
+                        name="wilayah"
+                      >
+                        <option value="undefined" hidden disabled>
+                          - Pilih Wilayah -
+                        </option>
+                        <option
+                          *ngFor="let w of wilayahs"
+                          [value]="w.idWilayah"
+                          id="wilayah-option"
+                        >
+                          {{ w.provinsi }}
+                        </option>
+
+                        <!-- Populate options here -->
+                      </select>
+                    </div>
+
+                    <div class="col-md-6">
+                      <label class="form-label">Brand Mobil</label>
+                      <select
+                        id="brand"
+                        [(ngModel)]="brandId"
+                        class="form-select"
+                        (ngModelChange)="onDetectIdBrand()"
+                        name="brand"
+                      >
+                        <option value="undefined" hidden disabled>
+                          - Pilih Brand -
+                        </option>
+                        <option
+                          *ngFor="let b of brands"
+                          value="{{ b.idBrand }}"
+                          id="wilayah-option"
+                        >
+                          {{ b.brandMobil }}
+                        </option>
+
+                        <!-- Populate options here -->
+                      </select>
+                    </div>
+
+                    <div class="col-md-6">
+                      <label class="form-label">Tipe Mobil</label>
+                      <select
+                        id="vehicle"
+                        class="form-select"
+                        [(ngModel)]="vehicleId"
+                        name="vehicle"
+                        (ngModelChange)="onDetectVehicle()"
+                      >
+                        <option value="undefined" hidden disabled>
+                          - Pilih Mobil -
+                        </option>
+                        <option
+                          *ngFor="let v of vehicles"
+                          value="{{ v.idVehicle }}"
+                        >
+                          {{ v.tipeMobil }}
+                        </option>
+                      </select>
+                    </div>
+
+                    <div class="col-md-6">
+                      <label class="form-label"
+                        >Harga Mobil di daerah Anda:</label
+                      >
+                      <input
+                        id="hargaMobil"
+                        style="background-color: rgb(127, 249, 255)"
+                        readonly
+                        type="text"
+                        class="form-control"
+                        value="{{
+                          hargaMobil | currency : 'Rp. ' : 'symbol' : '1.0-2'
+                        }}"
+                      />
+                    </div>
+
+                    <div class="col-md-6">
+                      <label class="form-label">Asuransi</label>
+                      <select
+                        id="asuransi"
+                        class="form-select"
+                        [(ngModel)]="namaAsuransi"
+                        name="asuransi"
+                        (ngModelChange)="onDetectAsuransi()"
+                      >
+                        <option value="undefined" hidden disabled>
+                          - Pilih Asuransi -
+                        </option>
+                        <option value="All Risk">All Risk</option>
+                        <option value="Kombinasi">Kombinasi</option>
+                      </select>
+                    </div>
+
+                    <div class="col-md-6">
+                      <label class="form-label">Tahun Mobil</label>
+                      <select
+                        id="tahun"
+                        class="form-select"
+                        [(ngModel)]="tahunMobil"
+                        name="tahun"
+                        (ngModelChange)="onDetectTahunMobil()"
+                      >
+                        <option value="undefined" hidden disabled>
+                          - Pilih Tahun Kendaraan -
+                        </option>
+                        <option *ngFor="let ly of lastYear">{{ ly }}</option>
+                      </select>
+                    </div>
+                    <!-- END OFF DATA1 -->
+
+                    <div
+                      style="text-align: center"
+                      class="col-md-12"
+                      role="group"
+                      aria-label="Basic outlined example"
+                    >
+                      <div class="d-flex justify-content-center gap-3">
+                        <p>
+                          <a
+                            class="btn btn-danger"
+                            [routerLink]="['/dashboard']"
+                            >Kembali</a
+                          >
+                        </p>
+                        <p>
+                          <a class="btn btn-primary" (click)="onHitung()"
+                            >Hitung &raquo;</a
+                          >
+                        </p>
+                      </div>
+                    </div>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script>
+      // Your JavaScript logic here
+    </script>
+  </body>
+</html>

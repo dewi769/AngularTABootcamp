@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TABootcamp</title>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      /* Add your custom styles here */
+      .section-title {
+        text-align: center;
+        color: blue;
+        font-weight: bold;
+        margin-bottom: 30px;
+      }
+
+      .card {
+        border: none;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .form-label {
+        font-weight: bold;
+      }
+
+      .form-control {
+        border-radius: 10px;
+        border: 1px solid #ced4da;
+        transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+      }
+
+      .form-control:focus {
+        border-color: #80bdff;
+        box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+      }
+
+      .btn-outline-secondary {
+        border-radius: 10px;
+      }
+
+      .form-group {
+        margin-bottom: 20px; /* Atur jarak antara setiap form group */
+      }
+    </style>
+  </head>
+  <body>
+    <main id="main">
+      <section id="about" class="about section-bg" text-align="center">
+        <div class="container" data-aos="fade-up">
+          <div class="section-title">
+            <h3
+              style="
+                text-align: center;
+                color: blue;
+                font-weight: bold;
+                margin-top: 10px;
+              "
+            >
+              <span cen>Input Status Konsumen</span>
+            </h3>
+          </div>
+          <!-- Form Input data Konsumen -->
+          <form>
+            <div class="form-group">
+              <label for="exampleFormControlInput1">NIK</label>
+              <input
+                type="nik"
+                class="form-control"
+                id="exampleFormControlInput1"
+                placeholder="Masukkan NIK"
+              />
+            </div>
+            <div class="form-group">
+              <label for="exampleFormControlInput1">Nama Lengkap</label>
+              <input
+                type="nik"
+                class="form-control"
+                id="exampleFormControlInput1"
+                placeholder="Masukkan Nama Lengkap"
+              />
+            </div>
+            <div class="form-group">
+              <label>Tanggal Lahir</label>
+              <input type="date" class="form-control" />
+            </div>
+            <div class="form-group">
+              <label for="exampleFormControlTextarea1">Domisili</label>
+              <textarea
+                class="form-control"
+                id="exampleFormControlTextarea1"
+                rows="3"
+              ></textarea>
+            </div>
+            <div class="form-group">
+              <label for="exampleFormControlInput1">Nomor Rekening BCA</label>
+              <input
+                type="nik"
+                class="form-control"
+                id="exampleFormControlInput1"
+                placeholder="Masukkan Nomor Rek BCA"
+              />
+            </div>
+            <div class="form-group">
+              <label for="exampleFormControlInput1">Foto Ktp </label>
+              <input
+                type="file"
+                class="form-control-file"
+                id="exampleFormControlFIle1"
+                placeholder="name@example.com"
+              />
+            </div>
+            <!-- Default radio -->
+            <label for="exampleFormControlInput1">Status Konsumen </label>
+            <div class="form-check">
+              <input
+                mdbRadio
+                class="form-check-input"
+                type="radio"
+                name="flexRadioDefault"
+                id="flexRadioDefault1"
+              />
+              <label class="form-check-label" for="flexRadioDefault1">
+                Menikah
+              </label>
+            </div>
+            <!-- Default checked radio -->
+            <div class="form-check">
+              <input
+                mdbRadio
+                class="form-check-input"
+                type="radio"
+                name="flexRadioDefault"
+                id="flexRadioDefault2"
+                [checked]="true"
+              />
+              <label class="form-check-label" for="flexRadioDefault2">
+                Single
+              </label>
+            </div>
+          </form>
+          <button type="button" class="btn btn-primary">Ajukan</button>
+        </div>
+      </section>
+    </main>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script>
+      // Your JavaScript logic here
+    </script>
+  </body>
+</html>
